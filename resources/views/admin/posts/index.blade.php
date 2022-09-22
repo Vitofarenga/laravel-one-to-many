@@ -14,7 +14,7 @@
         @forelse ($posts as $post)
         <tr>
           <th scope="row">
-              {{ $post->id }}
+              {{ $post->name }}
           </th>
           <td>{{ $post->author }}</td>
           <td>{{ $post->title }}</td>

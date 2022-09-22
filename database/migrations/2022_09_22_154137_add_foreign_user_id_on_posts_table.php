@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersDetailsTable extends Migration
+class AddForeignUserIdOnPostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateUsersDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_details', function (Blueprint $table) {
-            $table->id('user_id');
-            $table->string('address');
-            $table->string('phone', 20);
-
+        Schema::table('posts', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id')->after('id');
             $table->foreign('user_id')
             ->references('id')
             ->on('users');
-
         });
     }
 
@@ -32,8 +28,9 @@ class CreateUsersDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_details'); 
-            //
-        
+        Schema::table('posts', function (Blueprint $table) {
+            $table->dropForeign('posts_user_id_foreign');
+            $table->dropColumn('user_id');
+        });
     }
 }

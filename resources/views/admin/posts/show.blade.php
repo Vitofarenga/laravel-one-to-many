@@ -16,7 +16,7 @@
                     </div>
                    <div class="subtitle">
                     <p>
-                        Post id: {{ $post->id }} | Written: {{ $post->post_date }}
+                        Post id: {{ $post->user->name }} | Written: {{ $post->post_date }}
                     </p>
                    </div>
                    <div class="card-text">

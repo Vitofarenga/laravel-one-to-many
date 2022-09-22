@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -16,7 +18,7 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::where('user_id', Auth::id())->get();
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -38,7 +40,7 @@ class PostController extends Controller
         ]);
 
         $data = $request->all();
-        $data['author'] = Auth::user()->name;
+        $data['user_id'] = Auth::id();
         $data['post_date'] = new DateTime();
         Post::create($data);
         return redirect()->ruote('admin.posts.index')->with('Il post.'.$data["title"]. 'has been created succesfully');
