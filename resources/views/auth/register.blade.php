@@ -73,6 +73,5 @@
             </div>
         </div>
     </div>
-    ciao
 </div>
 @endsection
